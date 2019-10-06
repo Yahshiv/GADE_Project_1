@@ -45,14 +45,13 @@
             this.lblMap.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblMap.Location = new System.Drawing.Point(10, 10);
             this.lblMap.Name = "lblMap";
-            this.lblMap.Size = new System.Drawing.Size(380, 270);
+            this.lblMap.Size = new System.Drawing.Size(371, 270);
             this.lblMap.TabIndex = 0;
-            this.lblMap.Text = "\r\n\r\n\r\n\r\n\r\n             \r\n          Sample Text";
             // 
             // lblRound
             // 
             this.lblRound.AutoSize = true;
-            this.lblRound.Location = new System.Drawing.Point(446, 93);
+            this.lblRound.Location = new System.Drawing.Point(415, 255);
             this.lblRound.Name = "lblRound";
             this.lblRound.Size = new System.Drawing.Size(51, 13);
             this.lblRound.TabIndex = 1;
@@ -61,7 +60,7 @@
             // btnStart
             // 
             this.btnStart.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.btnStart.Location = new System.Drawing.Point(435, 142);
+            this.btnStart.Location = new System.Drawing.Point(411, 104);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 2;
@@ -72,24 +71,25 @@
             // btnPause
             // 
             this.btnPause.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.btnPause.Location = new System.Drawing.Point(435, 172);
+            this.btnPause.Location = new System.Drawing.Point(411, 134);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(75, 23);
             this.btnPause.TabIndex = 3;
             this.btnPause.Text = "Pause";
             this.btnPause.UseVisualStyleBackColor = false;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // tbUnitInfo
             // 
-            this.tbUnitInfo.Location = new System.Drawing.Point(537, 12);
+            this.tbUnitInfo.Location = new System.Drawing.Point(9, 295);
             this.tbUnitInfo.Name = "tbUnitInfo";
-            this.tbUnitInfo.Size = new System.Drawing.Size(127, 268);
+            this.tbUnitInfo.Size = new System.Drawing.Size(488, 75);
             this.tbUnitInfo.TabIndex = 4;
             this.tbUnitInfo.Text = "";
             // 
             // tbNumUnits
             // 
-            this.tbNumUnits.Location = new System.Drawing.Point(422, 116);
+            this.tbNumUnits.Location = new System.Drawing.Point(397, 61);
             this.tbNumUnits.Name = "tbNumUnits";
             this.tbNumUnits.Size = new System.Drawing.Size(100, 20);
             this.tbNumUnits.TabIndex = 5;
@@ -100,7 +100,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(690, 308);
+            this.ClientSize = new System.Drawing.Size(505, 382);
             this.Controls.Add(this.tbNumUnits);
             this.Controls.Add(this.tbUnitInfo);
             this.Controls.Add(this.btnPause);

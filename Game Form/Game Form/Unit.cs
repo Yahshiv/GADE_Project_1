@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Game_Form
 {
@@ -31,10 +32,10 @@ namespace Game_Form
         }
 
         public abstract void Move();
-        public abstract void Attack(Unit[] units);
+        public abstract void Attack(Unit[] units, char[,] map);
         public abstract bool IsInRange();
         public abstract void SeekTarget(Unit[] units);
-        public abstract void Die();
+        public abstract void Die(char[,] map);
         public abstract override string ToString();
 
         public abstract int XPos { get; set; }

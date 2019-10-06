@@ -7,29 +7,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Game_Form
 {
     public partial class formGameForm : Form
     {
+        Timer timer = new Timer();
+
         public formGameForm()
         {
             InitializeComponent();
+
+            Repeat(1000);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            Map.Randomize(int.Parse(tbNumUnits.Text));
-            lblMap = Map.DrawMap(lblMap);
-
-            while(Map.remUnits > 1)
+            if(Map.round == 0)
             {
-                tbUnitInfo = Map.SimulateRound(tbUnitInfo);
-                lblMap = Map.DrawMap(lblMap);
-                lblRound.Text = "Round: " + Map.round;
-                System.Threading.Thread.Sleep(1000);
+                Map.Randomize(int.Parse(tbNumUnits.Text));
+                Map.DrawMap(lblMap);
             }
+            
+            timer.Enabled = true;
+        }
+
+        public void Repeat(int time)
+        {
+            timer.Interval = time;
+            timer.Tick += new EventHandler(Event);
+        }
+
+        public void Event(Object sender, System.EventArgs e)
+        {
+            lblRound.Text = "Round: " + Map.round;
+            Map.SimulateRound(tbUnitInfo);
             Map.DrawMap(lblMap);
+
+            if(Map.timeToStop())
+            {
+                timer.Enabled = false;
+            }
+
+        }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = false;
         }
     }
 }

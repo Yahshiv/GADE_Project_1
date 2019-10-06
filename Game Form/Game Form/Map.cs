@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Game_Form
 {
@@ -40,10 +41,15 @@ namespace Game_Form
                     do
                     {
                         tempX = rnd.Next(0, 20);
+                        Debug.WriteLine(tempX);
                         tempY = rnd.Next(0, 20);
+                        Debug.WriteLine(tempY);
                     } while (map[tempX, tempY] != '~');
 
+                    units[i].XPos = tempX;
+                    units[i].YPos = tempY;
                     map[tempX, tempY] = units[i].Sym;
+                    Debug.WriteLine(map[tempX, tempY]);
                 }
                 else
                 {
@@ -51,10 +57,15 @@ namespace Game_Form
                     do
                     {
                         tempX = rnd.Next(0, 20);
+                        Debug.WriteLine(tempX);
                         tempY = rnd.Next(0, 20);
+                        Debug.WriteLine(tempY);
                     } while (map[tempX, tempY] != '~');
 
+                    units[i].XPos = tempX;
+                    units[i].YPos = tempY;
                     map[tempX, tempY] = units[i].Sym;
+                    Debug.WriteLine(map[tempX, tempY]);
                 }
             }
         }
@@ -87,20 +98,52 @@ namespace Game_Form
 
             for (int i = 0; i < units.Length; i++)
             {
-                map[units[i].XPos, units[i].YPos] = units[i].Sym;
+                if(units[i].Health > 0)
+                {
+                    map[units[i].XPos, units[i].YPos] = units[i].Sym;
+                }
             }
         }
 
         public static RichTextBox SimulateRound(RichTextBox tb)
         {
             tb.Text = "";
-            GameEngine.SimulateRound(units);
+            GameEngine.SimulateRound(units, map);
             foreach( Unit u in units )
             {
                 tb.Text += u.ToString();
+                if(u.ToString() != "")
+                {
+                    tb.Text += "\n";
+                }
+               
             }
-            tb.Text += "\n" + remUnits;
+            UpdateMap();
             return tb;
         }
+
+        public static bool timeToStop()
+        {
+            int livingUnits = 0;
+
+            foreach(Unit u in units)
+            {
+                if(u.Health > 0)
+                {
+                    livingUnits++;
+                }
+            }
+
+            if(livingUnits <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
     }
 }

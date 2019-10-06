@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Game_Form
 {
     class RangedUnit : Unit
     {
-        public RangedUnit() : base(0, 0, 11, 2, 3, 0, 3.9, 'R', false)
+        public RangedUnit() : base(0, 0, 9, 2, 3, 0, 3.9, 'R', false)
         {
 
         }
@@ -54,7 +55,7 @@ namespace Game_Form
 
         public override int MaxHealth { get => maxHealth; }
 
-        public override void Attack(Unit[] units)
+        public override void Attack(Unit[] units, char[,] map)
         {
             isInCombat = true;
             for (int i = 0; i < Map.origUnits; i++)
@@ -62,24 +63,28 @@ namespace Game_Form
                 if (units[i].XPos == XTarget && units[i].YPos == YTarget && units[i].Health > 0)
                 {
                     units[i].Health -= Atk;
-                    if (units[i].Health <= 0 && units[i].IsInCombat)
+                    if (units[i].Health <= 0 && /*units[i].*/IsInCombat)
                     {
-                        units[i].Die();
-                        units[i].IsInCombat = false;
+                        units[i].Die(map);
+                        Debug.WriteLine("================================ {0}", Map.remUnits);
+                        /*units[i].*/IsInCombat = false;
                     }
                 }
             }
         }
 
-        public override void Die()
+        public override void Die(char[,] map)
         {
             Map.remUnits--;
+            map[xPos, yPos] = '~';
+            Debug.WriteLine("remUnits: {0}, xPos: {1}, yPos: {2}", Map.remUnits, xPos, yPos);
         }
 
         public override bool IsInRange()
         {
             if (Math.Sqrt(Math.Pow(XPos - XTarget, 2) + Math.Pow(YPos - YTarget, 2)) <= Range)
             {
+                Debug.WriteLine("IsInRange for Unit at {0}, {1} with Target {2}, {3}", XPos, YPos, XTarget, YTarget);
                 return true;
             }
             else
@@ -94,8 +99,9 @@ namespace Game_Form
             {
                 if (Health >= maxHealth * 0.25)
                 {
-                    if (XPos - XTarget >= YPos - YTarget)
+                    if (Math.Pow(XPos - XTarget, 2) >= Math.Pow(YPos - YTarget, 2))
                     {
+                        Debug.WriteLine("Moving a Unit from: {0}, {1} towards: {2} {3}", XPos, YPos, XTarget, YTarget);
                         if (XPos - XTarget > 0)
                         {
                             XPos--;
@@ -250,42 +256,53 @@ namespace Game_Form
 
         public override void SeekTarget(Unit[] units)
         {
-            
-            if(xPos < 10)
-            {
-                if(yPos < 10)
-                {
-                    XTarget = 19;
-                    YTarget = 19;
-                }
-                else
-                {
-                    XTarget = 19;
-                    YTarget = 0;
-                }
-            }
-            else
-            {
-                if (yPos < 10)
-                {
-                    XTarget = 0;
-                    YTarget = 19;
-                }
-                else
-                {
-                    XTarget = 0;
-                    YTarget = 0;
-                }
-            }
+            double dist = 100;
+            double temp;
+
 
             foreach(Unit u in units)
-            {
+            {                
                 if (u.Health > 0)
                 {
-                    if (Math.Sqrt(Math.Pow(XPos - u.XPos, 2) + Math.Pow(YPos - u.YPos, 2)) != 0 && Math.Sqrt(Math.Pow(XPos - u.XPos, 2) + Math.Pow(YPos - u.YPos, 2)) < Math.Sqrt(Math.Pow(XPos - XTarget, 2) + Math.Pow(YPos - YTarget, 2)))
+                    /*if (xPos < 10)
                     {
+                        if (yPos < 10)
+                        {
+                            XTarget = 19;
+                            YTarget = 19;
+                            //Debug.WriteLine("Quad: TL");
+                        }
+                        else
+                        {
+                            XTarget = 19;
+                            YTarget = 0;
+                            //Debug.WriteLine("Quad: BL");
+                        }
+                    }
+                    else
+                    {
+                        if (yPos < 10)
+                        {
+                            XTarget = 0;
+                            YTarget = 19;
+                            //Debug.WriteLine("Quad: TR");
+                        }
+                        else
+                        {
+                            XTarget = 0;
+                            YTarget = 0;
+                            //Debug.WriteLine("Quad: BR");
+                        }
+                    }*/
+
+                    temp = Math.Sqrt(Math.Pow(XPos - u.XPos, 2) + Math.Pow(YPos - u.YPos, 2));
+
+                    if (temp != 0 && temp < dist)
+                    {
+                        dist = temp;
                         XTarget = u.XPos;
                         YTarget = u.YPos;
+                        Debug.WriteLine("Target Acquired! at {0}, {1}", XTarget, YTarget);
                     }
                 }
             }
