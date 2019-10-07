@@ -9,11 +9,11 @@ namespace Game_Form
 {
     class MeleeUnit : Unit
     {
-        public MeleeUnit() : base(0, 0, 16, 1, 5, 0, 1.9, 'M', false)
+        public MeleeUnit() : base(0, 0, 16, 1, 5, 0, 1.9, 'M', false)//constructor using base constructor
         {
 
         }
-
+        //overriden fields
         public override int XPos
         {
             get => xPos;
@@ -55,7 +55,7 @@ namespace Game_Form
 
         public override int MaxHealth { get => maxHealth; }
 
-        public override void Attack(Unit[] units, char[,] map)
+        public override void Attack(Unit[] units, char[,] map)//attack method
         {
             isInCombat = true;
             for (int i = 0; i < Map.origUnits; i++)
@@ -73,14 +73,14 @@ namespace Game_Form
             }
         }
 
-        public override void Die(char[,] map)
+        public override void Die(char[,] map)//death method
         {
             Map.remUnits--;
             map[xPos, yPos] = '~';
             Debug.WriteLine("remUnits: {0}, xPos: {1}, yPos: {2}", Map.remUnits, xPos, yPos);
         }
 
-        public override bool IsInRange()
+        public override bool IsInRange()//range checking method, returns true if within attack range
         {
             if (Math.Sqrt(Math.Pow(XPos - XTarget, 2) + Math.Pow(YPos - YTarget, 2)) <= Range)
             {
@@ -93,7 +93,7 @@ namespace Game_Form
             }
         }
 
-        public override void Move()
+        public override void Move()//moves unit and runs away below 25% health
         {
             if (Map.round % Speed == 0)
             {
@@ -258,7 +258,7 @@ namespace Game_Form
             Map.UpdateMap();
         }
 
-        public override void SeekTarget(Unit[] units)
+        public override void SeekTarget(Unit[] units)//finds closest unit in the array
         {
             double dist = 100;
             double temp;
@@ -312,7 +312,7 @@ namespace Game_Form
             }
         }
 
-        public override string ToString()
+        public override string ToString()//neatly formated string with unit info
         {
             if (Health <= 0)
             {

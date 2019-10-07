@@ -9,12 +9,12 @@ namespace Game_Form
 {
     abstract class Unit
     {
-        protected int xPos, yPos, health, maxHealth, speed, atk, team, xTarget, yTarget;
-        protected double range;
-        protected char sym;
-        protected bool isInCombat;
+        protected int xPos, yPos, health, maxHealth, speed, atk, team, xTarget, yTarget; //unit data
+        protected double range; //attackRange
+        protected char sym; //Symbol to Display for this unit on the map
+        protected bool isInCombat; //combat flag
 
-        public Unit(int xPos, int yPos, int health, int speed, int atk, int team, double range, char sym, bool isInCombat)
+        public Unit(int xPos, int yPos, int health, int speed, int atk, int team, double range, char sym, bool isInCombat)//constructor
         {
             this.xPos = xPos;
             this.yPos = yPos;
@@ -31,6 +31,7 @@ namespace Game_Form
             this.yTarget = 19;
         }
 
+        //abstract methods
         public abstract void Move();
         public abstract void Attack(Unit[] units, char[,] map);
         public abstract bool IsInRange();
@@ -38,6 +39,8 @@ namespace Game_Form
         public abstract void Die(char[,] map);
         public abstract override string ToString();
 
+
+        //abstract fields
         public abstract int XPos { get; set; }
         public abstract int YPos { get; set; }
         public abstract int Health { get; set; }

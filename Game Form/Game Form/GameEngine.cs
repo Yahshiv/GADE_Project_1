@@ -9,7 +9,7 @@ namespace Game_Form
 {
     static class GameEngine
     {
-        public static void SimulateRound(Unit[] units, char[,] map)
+        public static void SimulateRound(Unit[] units, char[,] map)//each game round
         {
             Map.round++;
             for (int i = 0; i < units.Length; i++)

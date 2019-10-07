@@ -13,7 +13,7 @@ namespace Game_Form
 {
     public partial class formGameForm : Form
     {
-        Timer timer = new Timer();
+        Timer timer = new Timer();//timer to run gameLoop on set interval (frame rate)
 
         public formGameForm()
         {
@@ -22,7 +22,7 @@ namespace Game_Form
             Repeat(1000);
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)//Start Button
         {
             if(Map.round == 0)
             {
@@ -33,13 +33,13 @@ namespace Game_Form
             timer.Enabled = true;
         }
 
-        public void Repeat(int time)
+        public void Repeat(int time)//repeatable interval
         {
             timer.Interval = time;
             timer.Tick += new EventHandler(Event);
         }
 
-        public void Event(Object sender, System.EventArgs e)
+        public void Event(Object sender, System.EventArgs e)//repeatable method code
         {
             lblRound.Text = "Round: " + Map.round;
             Map.SimulateRound(tbUnitInfo);
@@ -52,7 +52,7 @@ namespace Game_Form
 
         }
 
-        private void btnPause_Click(object sender, EventArgs e)
+        private void btnPause_Click(object sender, EventArgs e)//Pause Button
         {
             timer.Enabled = false;
         }

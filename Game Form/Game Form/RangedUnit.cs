@@ -9,11 +9,11 @@ namespace Game_Form
 {
     class RangedUnit : Unit
     {
-        public RangedUnit() : base(0, 0, 9, 2, 3, 0, 3.9, 'R', false)
+        public RangedUnit() : base(0, 0, 9, 2, 3, 0, 3.9, 'R', false)//constructor using base constructor
         {
 
         }
-
+        //override fields
         public override int XPos
         {
             get => xPos;
@@ -55,7 +55,7 @@ namespace Game_Form
 
         public override int MaxHealth { get => maxHealth; }
 
-        public override void Attack(Unit[] units, char[,] map)
+        public override void Attack(Unit[] units, char[,] map)//attack method searches array for targets
         {
             isInCombat = true;
             for (int i = 0; i < Map.origUnits; i++)
@@ -73,14 +73,14 @@ namespace Game_Form
             }
         }
 
-        public override void Die(char[,] map)
+        public override void Die(char[,] map)//kills the unit nad changes the symbol on the map
         {
             Map.remUnits--;
             map[xPos, yPos] = '~';
             Debug.WriteLine("remUnits: {0}, xPos: {1}, yPos: {2}", Map.remUnits, xPos, yPos);
         }
 
-        public override bool IsInRange()
+        public override bool IsInRange()//returns true if the unit is in range
         {
             if (Math.Sqrt(Math.Pow(XPos - XTarget, 2) + Math.Pow(YPos - YTarget, 2)) <= Range)
             {
@@ -93,7 +93,7 @@ namespace Game_Form
             }
         }
 
-        public override void Move()
+        public override void Move()//moves towards the target or runs away below 25% HP
         {
             if(Map.round%Speed == 0)
             {
@@ -254,7 +254,7 @@ namespace Game_Form
             Map.UpdateMap();
         }
 
-        public override void SeekTarget(Unit[] units)
+        public override void SeekTarget(Unit[] units)//searches array for clostest unit
         {
             double dist = 100;
             double temp;
@@ -308,7 +308,7 @@ namespace Game_Form
             }
         }
 
-        public override string ToString()
+        public override string ToString()//returns formated information
         {
             if(Health <= 0)
             {

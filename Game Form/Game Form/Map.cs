@@ -10,15 +10,15 @@ namespace Game_Form
 {
     static class Map
     {
-        public static int round = 0;
-        public static Random rnd = new Random();
-        static char[,] map = new char[20, 20];
-        static Unit[] units;
-        static int tempX, tempY;
-        public static int origUnits;
-        public static int remUnits;
+        public static int round = 0; //round counter
+        public static Random rnd = new Random(); //general random
+        static char[,] map = new char[20, 20]; //default map array
+        static Unit[] units; //default unit array
+        static int tempX, tempY; //temporary X and Y values
+        public static int origUnits; //original number of units
+        public static int remUnits; //remaining units
 
-        public static void Randomize(int numUnits)
+        public static void Randomize(int numUnits)//randomly populates units array with random units
         {
             origUnits = numUnits;
             remUnits = numUnits;
@@ -70,7 +70,7 @@ namespace Game_Form
             }
         }
 
-        public static Label DrawMap(Label lbl)
+        public static Label DrawMap(Label lbl)//returns a string formatted map
         {
             lbl.Text = "";
             UpdateMap();
@@ -86,7 +86,7 @@ namespace Game_Form
             return lbl;
         }
 
-        public static void UpdateMap()
+        public static void UpdateMap()//updates the map with spaces then units
         {
             for (int y = 0; y < 20; y++)
             {
@@ -105,7 +105,7 @@ namespace Game_Form
             }
         }
 
-        public static RichTextBox SimulateRound(RichTextBox tb)
+        public static RichTextBox SimulateRound(RichTextBox tb)//round simulation
         {
             tb.Text = "";
             GameEngine.SimulateRound(units, map);
@@ -122,7 +122,7 @@ namespace Game_Form
             return tb;
         }
 
-        public static bool timeToStop()
+        public static bool timeToStop()//returns true when one unit remains
         {
             int livingUnits = 0;
 
